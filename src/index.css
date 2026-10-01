@@ -1,0 +1,321 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Nurtail — "Forest & Champagne" ──────────────────────────────────────────
+   From the brand guidelines: Forest Green carries trust and action, Sage and
+   Muted Green carry calm surfaces, Champagne signals quality, Warm Coral is
+   empathy and — sparingly — urgency. "Premium, calm and credible — not a
+   childish pet app."
+
+   Colour does two jobs only: it says you can ACT (forest) or what something IS
+   (status). Status is never colour alone — every pill carries an icon and a
+   word (WCAG 1.4.1). See DESIGN.md.
+─────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root,
+  .light {
+    --background: 40 33% 97%; /* warm off-white #FAF9F6 */
+    --foreground: 168 37% 13%; /* deep forest ink */
+    --card: 0 0% 100%;
+    --card-foreground: 168 37% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 168 37% 13%;
+
+    --primary: 170 69% 18%; /* Forest Green #0E4D43 */
+    --primary-foreground: 40 52% 97%;
+
+    --secondary: 40 52% 94%; /* Soft Beige #F7F2E8 */
+    --secondary-foreground: 168 37% 16%;
+
+    --muted: 40 18% 93%;
+    --muted-foreground: 165 9% 36%; /* 6.9:1 on white */
+
+    --accent: 125 24% 93%; /* Muted Green #E8F1E9 */
+    --accent-foreground: 170 69% 18%;
+
+    --destructive: 8 62% 44%; /* coral, darkened for text */
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 42% 28%; /* Welfare Green */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 70% 31%; /* champagne, darkened for text */
+    --warning-foreground: 0 0% 100%;
+
+    --info: 209 56% 38%; /* sky, darkened for text */
+    --info-foreground: 0 0% 100%;
+
+    --border: 40 14% 86%;
+    --input: 40 12% 80%;
+    --ring: 170 69% 22%;
+    --radius: 0.85rem;
+
+    --sidebar: 170 45% 12%; /* Forest night — as in the blueprint workspace */
+    --sidebar-foreground: 40 30% 88%;
+    --sidebar-primary: 40 52% 94%;
+    --sidebar-primary-foreground: 170 69% 16%;
+    --sidebar-accent: 170 35% 18%;
+    --sidebar-accent-foreground: 40 40% 96%;
+    --sidebar-border: 170 30% 20%;
+  }
+
+  .dark {
+    --background: 168 34% 7%;
+    --foreground: 40 25% 92%;
+    --card: 168 28% 10%;
+    --card-foreground: 40 25% 92%;
+    --popover: 168 28% 11%;
+    --popover-foreground: 40 25% 92%;
+
+    --primary: 152 38% 58%; /* sage-mint, legible on forest night */
+    --primary-foreground: 168 40% 8%;
+
+    --secondary: 168 20% 16%;
+    --secondary-foreground: 40 25% 92%;
+
+    --muted: 168 20% 15%;
+    --muted-foreground: 40 10% 68%;
+
+    --accent: 168 24% 17%;
+    --accent-foreground: 40 30% 95%;
+
+    --destructive: 8 85% 66%;
+    --destructive-foreground: 168 40% 8%;
+
+    --success: 152 45% 55%;
+    --success-foreground: 168 40% 8%;
+
+    --warning: 40 60% 65%;
+    --warning-foreground: 168 40% 8%;
+
+    --info: 209 68% 70%;
+    --info-foreground: 168 40% 8%;
+
+    --border: 168 18% 20%;
+    --input: 168 18% 24%;
+    --ring: 152 38% 58%;
+
+    --sidebar: 168 38% 6%;
+    --sidebar-foreground: 40 25% 85%;
+    --sidebar-primary: 152 38% 58%;
+    --sidebar-primary-foreground: 168 40% 8%;
+    --sidebar-accent: 168 26% 13%;
+    --sidebar-accent-foreground: 40 30% 95%;
+    --sidebar-border: 168 22% 14%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    font-family: Montserrat, system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    /* Montserrat is wide; 14px is its legible floor for UI, 1.55 leading for prose. */
+    line-height: 1.55;
+  }
+
+  /* Visible, consistent focus — forest ring with an offset so it reads on any
+     surface (WCAG 2.4.7 / 2.4.13). Mouse clicks do not show it. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+/* Honour reduced-motion everywhere, including library animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  /* ── Type ──────────────────────────────────────────────────────────────────── */
+
+  /**
+ * Playfair is a display face: headlines ≥ 24px only. Below that its hairline
+ * contrast breaks up on screens, so section titles use Montserrat semibold.
+ */
+  .nt-display {
+    @apply font-display font-semibold tracking-tight text-foreground;
+  }
+
+  /* Refs, microchips, figures: digits line up column over column. */
+  table,
+  .nt-nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  .nt-eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground;
+  }
+
+  /* ── Surfaces ────────────────────────────────────────────────────────────────
+   Three primitives. In-page panels are boundaries (hairline, no shadow);
+   only things that genuinely float get elevation.
+─────────────────────────────────────────────────────────────────────────── */
+
+  .nt-panel {
+    @apply rounded-lg border border-border bg-card;
+  }
+  .nt-tile {
+    @apply rounded-lg border border-border bg-card p-4 md:p-5;
+  }
+  .nt-overlay {
+    @apply rounded-xl border border-border bg-popover shadow-2xl;
+  }
+
+  /* Tinted callout — guidance, guardrails, safety copy. */
+  .nt-callout {
+    @apply rounded-lg border px-4 py-3 text-sm;
+  }
+
+  .nt-thead {
+    @apply sticky top-0 z-10 bg-secondary;
+  }
+
+  /* ── Controls ──────────────────────────────────────────────────────────────── */
+
+  .nt-input {
+    @apply h-11 w-full rounded-md border border-input bg-card px-3 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors focus-visible:border-ring disabled:opacity-60;
+  }
+  textarea.nt-input {
+    @apply h-auto min-h-[96px] py-2.5;
+  }
+  .nt-label {
+    @apply mb-1.5 block text-sm font-medium text-foreground;
+  }
+  .nt-hint {
+    @apply mt-1 text-xs text-muted-foreground;
+  }
+  .nt-error {
+    @apply mt-1 text-xs font-medium text-destructive;
+  }
+
+  .nt-btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 text-sm font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50;
+  }
+  .nt-btn-primary {
+    @apply nt-btn bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  .nt-btn-secondary {
+    @apply nt-btn border border-primary/30 bg-card text-primary hover:bg-accent;
+  }
+  .nt-btn-ghost {
+    @apply nt-btn text-foreground hover:bg-accent;
+  }
+  .nt-btn-danger {
+    @apply nt-btn bg-destructive text-destructive-foreground hover:bg-destructive/90;
+  }
+  .nt-btn-sm {
+    @apply h-9 px-3 text-xs;
+  }
+
+  /* Minimum touch target — 44px, as Apple and GOV.UK both specify. */
+  .nt-tap {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Scrollbars — thin, the app is list-heavy. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-muted-foreground/25;
+  }
+
+  /* ── Mobile ────────────────────────────────────────────────────────────────── */
+
+  .nt-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .nt-safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .nt-bottombar {
+    @apply fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card;
+  }
+
+  .nt-sheet {
+    @apply flex max-h-[92vh] w-full flex-col rounded-t-2xl border-t border-border bg-popover shadow-2xl;
+  }
+  .nt-sheet-grip {
+    @apply mx-auto my-2.5 h-1 w-9 shrink-0 rounded-full bg-muted-foreground/30;
+  }
+
+  .nt-card {
+    @apply rounded-lg border border-border bg-card p-4 transition-colors;
+  }
+  a.nt-card:hover,
+  button.nt-card:hover {
+    @apply border-primary/40;
+  }
+
+  .nt-chips {
+    @apply -mx-4 flex gap-2 overflow-x-auto px-4 pb-0.5 md:mx-0 md:flex-wrap md:px-0;
+    scrollbar-width: none;
+  }
+  .nt-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .nt-chip {
+    @apply inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-card px-3.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40;
+  }
+  .nt-chip[aria-pressed="true"] {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+
+  .nt-disc {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold uppercase text-accent-foreground;
+  }
+
+  .nt-fab {
+    @apply fixed right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg;
+    bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Skeleton loaders beat spinners for perceived speed on lists. */
+  .nt-skeleton {
+    @apply animate-pulse rounded-md bg-muted;
+  }
+}
+
+/* iOS zooms inputs under 16px and never zooms back out. */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Leaflet sits under our overlays. */
+.leaflet-container {
+  font-family: Montserrat, system-ui, sans-serif;
+  z-index: 0;
+}
