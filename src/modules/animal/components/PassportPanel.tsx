@@ -29,6 +29,12 @@ export function PassportPanel({ animal }: { animal: Animal }) {
   const [lostOpen, setLostOpen] = useState(false);
   const canLost =
     animal.custody === "owner" && (animal.access === "owner" || animal.access === "admin");
+  // The API builds this link from its APP_BASE_URL setting. The passport page
+  // lives in this same app, so rebase it onto the address the owner is actually
+  // using: a mis-set server variable can then never produce a dead link or QR.
+  const shareUrl = p.shareUrl
+    ? `${window.location.origin}${new URL(p.shareUrl, window.location.origin).pathname}`
+    : null;
 
   const save = (patch: Parameters<typeof update.mutate>[0], ok: string) =>
     update.mutate(patch, {
@@ -176,11 +182,11 @@ export function PassportPanel({ animal }: { animal: Animal }) {
       <aside className="lg:col-span-2">
         <section className="nt-tile space-y-4 text-center">
           <h3 className="text-sm font-semibold">Share link</h3>
-          {p.active && p.shareUrl ? (
+          {p.active && shareUrl ? (
             <>
               <div className="mx-auto w-fit rounded-lg border border-border bg-white p-3">
                 <QRCodeSVG
-                  value={p.shareUrl}
+                  value={shareUrl}
                   size={168}
                   fgColor="#0E4D43"
                   level="M"
@@ -188,7 +194,7 @@ export function PassportPanel({ animal }: { animal: Animal }) {
                 />
               </div>
               <p className="break-all rounded-md bg-muted px-3 py-2 text-left text-xs">
-                {p.shareUrl}
+                {shareUrl}
               </p>
               <div className="flex flex-wrap justify-center gap-2">
                 <button
@@ -196,7 +202,7 @@ export function PassportPanel({ animal }: { animal: Animal }) {
                   className="nt-btn-secondary nt-btn-sm"
                   onClick={() =>
                     navigator.clipboard
-                      ?.writeText(p.shareUrl!)
+                      ?.writeText(shareUrl)
                       .then(() => toast.success("Link copied"))
                   }
                 >
@@ -204,7 +210,7 @@ export function PassportPanel({ animal }: { animal: Animal }) {
                 </button>
                 <a
                   className="nt-btn-secondary nt-btn-sm"
-                  href={p.shareUrl}
+                  href={shareUrl}
                   target="_blank"
                   rel="noreferrer"
                 >
