@@ -160,7 +160,7 @@ export function SettingsPage() {
                   className={`flex items-center justify-center gap-2 rounded-md border px-3 py-3 text-sm font-medium ${
                     theme === t
                       ? "border-primary bg-accent text-primary"
-                      : "border-border hover:border-primary/40"
+                      : "border-border hover:shadow-lift"
                   }`}
                 >
                   {t === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}

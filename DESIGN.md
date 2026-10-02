@@ -26,15 +26,17 @@ language, and UI/UX research carried out on 30 Sep 2026 (sources at the end).
 
 ## 2. Brand tokens (`src/index.css`, `tailwind.config.js`)
 
-| Token                 | Value                  | Use                                       |
-| --------------------- | ---------------------- | ----------------------------------------- |
-| `primary`             | Forest Green `#0E4D43` | Actions, active navigation, focus ring    |
-| `sidebar`             | Forest night           | App navigation (blueprint workspace)      |
-| `brand.sage` / `mint` | `#8FAE8B` / `#E8F1E9`  | Calm surfaces, stat tiles                 |
-| `brand.gold`          | Champagne `#D4B581`    | Wordmark "tail", "Review" chips, accents  |
-| `brand.coral`         | Warm Coral `#F97B68`   | Lost / injured / escalate, used sparingly |
-| `brand.beige`         | Soft Beige `#F7F2E8`   | Secondary surfaces                        |
-| `brand.sky`           | Sky `#7CB3E6`          | Information, sightings                    |
+| Token                 | Value                  | Use                                        |
+| --------------------- | ---------------------- | ------------------------------------------ |
+| `primary`             | Forest Green `#0E4D43` | Actions, active navigation, focus ring     |
+| `background`          | Warm canvas `#F7F5F1`  | Page canvas; cards are white on top        |
+| `sidebar`             | Dim warm `#F2EFE9`     | Navigation, a notch dimmer than the canvas |
+| `border`              | Forest-tinted hairline | The only "border": `shadow-card`           |
+| `brand.sage` / `mint` | `#8FAE8B` / `#E8F1E9`  | Calm surfaces, stat tiles                  |
+| `brand.gold`          | Champagne `#D4B581`    | Wordmark "tail", "Review" chips, accents   |
+| `brand.coral`         | Warm Coral `#F97B68`   | Lost / injured / escalate, used sparingly  |
+| `brand.beige`         | Soft Beige `#F7F2E8`   | Secondary surfaces                         |
+| `brand.sky`           | Sky `#7CB3E6`          | Information, sightings                     |
 
 **Contrast rule:** champagne and coral both fail 4.5:1 as text on white.
 They're only ever fills and accents. Text on a brand tint uses the matching
@@ -54,8 +56,20 @@ token.
 ## 4. Surfaces and components
 
 - **`.nt-panel` / `.nt-tile` / `.nt-overlay`** are the only three containers.
-  In-page panels are boundaries: a hairline and no shadow. Only things that
-  float (dialogs, menus, the palette, sheets) get elevation.
+  The hairline is a shadow (`shadow-card`: a 1px forest-tinted ring), so it
+  never changes layout and adapts to dark mode; hover lifts to `shadow-lift`.
+  Only things that float (dialogs, menus, the palette, sheets) get `shadow-popover`.
+  Grey borders plus drop shadows on every white tile over a white page is the
+  single biggest "admin template" tell, so we don't.
+- **Density.** UI text is 13px (Montserrat 500 for labels, 600 for emphasis),
+  body 14px, meta 12px. Nav items 32px, buttons and inputs 40px (44px on
+  phones), table rows ~44px with 12px cell padding and no zebra stripes.
+  Column headers are sentence case, never uppercase.
+- **One accent.** Forest only for the primary button, active nav, links and the
+  focus ring. Coral for welfare alerts and destructive actions. Gold for one
+  editorial moment per screen. Every icon is not green.
+- **Home screens** list what needs you first (calm when nothing does), then at
+  most four figures, then the pipeline, then today — never a wall of widgets.
 - **Status pills** (`StatusPill`, registry in `shared/lib/status.ts`) follow the
   GOV.UK tag pattern: adjective, sentence case, light tint with dark ink, plus an
   icon. Add new statuses to the registry rather than styling locally.
@@ -99,7 +113,7 @@ token.
 
 ## Sources
 
-GOV.UK Design System (error summary, tag, patterns) · NHS service manual
+Linear UI redesign notes (2024–26) · Vercel Geist elevation · Attio surface tokens · Emil Kowalski on animation · GOV.UK Design System (error summary, tag, patterns) · NHS service manual
 "complete multiple tasks" · WCAG 2.2 (TetraLogical, Deque) · ASPCApro pathway
 planning and population rounds · Best Friends length-of-stay manual ·
 PawBoost (lost and found) · Rover background checks · enterpriseready.io audit

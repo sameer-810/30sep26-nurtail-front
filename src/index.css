@@ -8,15 +8,20 @@
    empathy and — sparingly — urgency. "Premium, calm and credible — not a
    childish pet app."
 
+   The surface system (Oct 2026 refresh, see DESIGN.md §4): a warm canvas,
+   white cards, and a forest-tinted hairline instead of grey borders and
+   drop shadows. Shadows exist only on things that float. The sidebar is a
+   few notches dimmer than the content so the work, not the chrome, wins.
+
    Colour does two jobs only: it says you can ACT (forest) or what something IS
    (status). Status is never colour alone — every pill carries an icon and a
-   word (WCAG 1.4.1). See DESIGN.md.
+   word (WCAG 1.4.1).
 ─────────────────────────────────────────────────────────────────────────── */
 
 @layer base {
   :root,
   .light {
-    --background: 40 33% 97%; /* warm off-white #FAF9F6 */
+    --background: 40 27% 96%; /* warm canvas #F7F5F1 */
     --foreground: 168 37% 13%; /* deep forest ink */
     --card: 0 0% 100%;
     --card-foreground: 168 37% 13%;
@@ -26,13 +31,13 @@
     --primary: 170 69% 18%; /* Forest Green #0E4D43 */
     --primary-foreground: 40 52% 97%;
 
-    --secondary: 40 52% 94%; /* Soft Beige #F7F2E8 */
+    --secondary: 45 29% 97%; /* subtle: table heads, panels #FAF9F6 */
     --secondary-foreground: 168 37% 16%;
 
-    --muted: 40 18% 93%;
+    --muted: 40 25% 93%; /* #F2EFE9 */
     --muted-foreground: 165 9% 36%; /* 6.9:1 on white */
 
-    --accent: 125 24% 93%; /* Muted Green #E8F1E9 */
+    --accent: 170 20% 94%; /* hover tint, derived from the forest hue */
     --accent-foreground: 170 69% 18%;
 
     --destructive: 8 62% 44%; /* coral, darkened for text */
@@ -47,18 +52,18 @@
     --info: 209 56% 38%; /* sky, darkened for text */
     --info-foreground: 0 0% 100%;
 
-    --border: 40 14% 86%;
-    --input: 40 12% 80%;
+    --border: 165 12% 89%; /* forest-tinted hairline */
+    --input: 165 10% 82%;
     --ring: 170 69% 22%;
-    --radius: 0.85rem;
+    --radius: 0.75rem; /* cards 12 · controls 8 · chips 6 */
 
-    --sidebar: 170 45% 12%; /* Forest night — as in the blueprint workspace */
-    --sidebar-foreground: 40 30% 88%;
-    --sidebar-primary: 40 52% 94%;
-    --sidebar-primary-foreground: 170 69% 16%;
-    --sidebar-accent: 170 35% 18%;
-    --sidebar-accent-foreground: 40 40% 96%;
-    --sidebar-border: 170 30% 20%;
+    --sidebar: 40 25% 93%; /* dimmer than the canvas, as Linear does */
+    --sidebar-foreground: 144 6% 36%;
+    --sidebar-primary: 170 69% 18%;
+    --sidebar-primary-foreground: 170 69% 18%;
+    --sidebar-accent: 170 18% 89%;
+    --sidebar-accent-foreground: 168 37% 13%;
+    --sidebar-border: 40 14% 86%;
   }
 
   .dark {
@@ -72,13 +77,13 @@
     --primary: 152 38% 58%; /* sage-mint, legible on forest night */
     --primary-foreground: 168 40% 8%;
 
-    --secondary: 168 20% 16%;
+    --secondary: 168 20% 12%;
     --secondary-foreground: 40 25% 92%;
 
     --muted: 168 20% 15%;
     --muted-foreground: 40 10% 68%;
 
-    --accent: 168 24% 17%;
+    --accent: 168 24% 15%;
     --accent-foreground: 40 30% 95%;
 
     --destructive: 8 85% 66%;
@@ -93,14 +98,14 @@
     --info: 209 68% 70%;
     --info-foreground: 168 40% 8%;
 
-    --border: 168 18% 20%;
+    --border: 168 18% 18%;
     --input: 168 18% 24%;
     --ring: 152 38% 58%;
 
     --sidebar: 168 38% 6%;
-    --sidebar-foreground: 40 25% 85%;
+    --sidebar-foreground: 40 15% 70%;
     --sidebar-primary: 152 38% 58%;
-    --sidebar-primary-foreground: 168 40% 8%;
+    --sidebar-primary-foreground: 152 38% 58%;
     --sidebar-accent: 168 26% 13%;
     --sidebar-accent-foreground: 40 30% 95%;
     --sidebar-border: 168 22% 14%;
@@ -115,7 +120,7 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    /* Montserrat is wide; 14px is its legible floor for UI, 1.55 leading for prose. */
+    /* Montserrat is wide; 14px is its legible floor for prose, 13px for dense UI. */
     line-height: 1.55;
   }
 
@@ -154,11 +159,11 @@ body,
   /* ── Type ──────────────────────────────────────────────────────────────────── */
 
   /**
- * Playfair is a display face: headlines ≥ 24px only. Below that its hairline
- * contrast breaks up on screens, so section titles use Montserrat semibold.
- */
+   * Playfair is a display face: headlines ≥ 24px only. Below that its hairline
+   * contrast breaks up on screens, so section titles use Montserrat semibold.
+   */
   .nt-display {
-    @apply font-display font-semibold tracking-tight text-foreground;
+    @apply font-display font-semibold tracking-[-0.01em] text-foreground;
   }
 
   /* Refs, microchips, figures: digits line up column over column. */
@@ -172,19 +177,24 @@ body,
     @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground;
   }
 
+  /* Section title inside a page: Montserrat, never bold-everywhere. */
+  .nt-h2 {
+    @apply text-[15px] font-semibold text-foreground;
+  }
+
   /* ── Surfaces ────────────────────────────────────────────────────────────────
-   Three primitives. In-page panels are boundaries (hairline, no shadow);
-   only things that genuinely float get elevation.
-─────────────────────────────────────────────────────────────────────────── */
+     The hairline IS the border (shadow-card); hover lifts it a notch; only
+     floating layers (menus, dialogs, sheets) get a real shadow.
+  ─────────────────────────────────────────────────────────────────────────── */
 
   .nt-panel {
-    @apply rounded-lg border border-border bg-card;
+    @apply rounded-lg bg-card shadow-card;
   }
   .nt-tile {
-    @apply rounded-lg border border-border bg-card p-4 md:p-5;
+    @apply rounded-lg bg-card p-4 shadow-card md:p-5;
   }
   .nt-overlay {
-    @apply rounded-xl border border-border bg-popover shadow-2xl;
+    @apply rounded-xl bg-popover shadow-popover;
   }
 
   /* Tinted callout — guidance, guardrails, safety copy. */
@@ -193,19 +203,19 @@ body,
   }
 
   .nt-thead {
-    @apply sticky top-0 z-10 bg-secondary;
+    @apply sticky top-0 z-10 bg-secondary text-xs font-semibold text-muted-foreground;
   }
 
   /* ── Controls ──────────────────────────────────────────────────────────────── */
 
   .nt-input {
-    @apply h-11 w-full rounded-md border border-input bg-card px-3 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors focus-visible:border-ring disabled:opacity-60;
+    @apply h-10 w-full rounded-md border border-input bg-card px-3 text-sm text-foreground placeholder:text-muted-foreground/70 transition-[border-color,box-shadow] focus-visible:border-ring disabled:opacity-60;
   }
   textarea.nt-input {
     @apply h-auto min-h-[96px] py-2.5;
   }
   .nt-label {
-    @apply mb-1.5 block text-sm font-medium text-foreground;
+    @apply mb-1.5 block text-[13px] font-medium text-foreground;
   }
   .nt-hint {
     @apply mt-1 text-xs text-muted-foreground;
@@ -215,13 +225,13 @@ body,
   }
 
   .nt-btn {
-    @apply inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 text-sm font-semibold transition-colors disabled:pointer-events-none disabled:opacity-50;
+    @apply inline-flex h-10 items-center justify-center gap-2 whitespace-nowrap rounded-md px-4 text-[13px] font-semibold transition-[background-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
   }
   .nt-btn-primary {
     @apply nt-btn bg-primary text-primary-foreground hover:bg-primary/90;
   }
   .nt-btn-secondary {
-    @apply nt-btn border border-primary/30 bg-card text-primary hover:bg-accent;
+    @apply nt-btn bg-card text-primary shadow-card hover:shadow-lift;
   }
   .nt-btn-ghost {
     @apply nt-btn text-foreground hover:bg-accent;
@@ -230,7 +240,7 @@ body,
     @apply nt-btn bg-destructive text-destructive-foreground hover:bg-destructive/90;
   }
   .nt-btn-sm {
-    @apply h-9 px-3 text-xs;
+    @apply h-8 px-3 text-xs;
   }
 
   /* Minimum touch target — 44px, as Apple and GOV.UK both specify. */
@@ -262,18 +272,18 @@ body,
   }
 
   .nt-sheet {
-    @apply flex max-h-[92vh] w-full flex-col rounded-t-2xl border-t border-border bg-popover shadow-2xl;
+    @apply flex max-h-[92vh] w-full flex-col rounded-t-2xl bg-popover shadow-popover;
   }
   .nt-sheet-grip {
     @apply mx-auto my-2.5 h-1 w-9 shrink-0 rounded-full bg-muted-foreground/30;
   }
 
   .nt-card {
-    @apply rounded-lg border border-border bg-card p-4 transition-colors;
+    @apply rounded-lg bg-card p-4 shadow-card transition-shadow duration-150;
   }
   a.nt-card:hover,
   button.nt-card:hover {
-    @apply border-primary/40;
+    @apply shadow-lift;
   }
 
   .nt-chips {
@@ -284,10 +294,10 @@ body,
     display: none;
   }
   .nt-chip {
-    @apply inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-border bg-card px-3.5 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40;
+    @apply inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-card px-3 text-[13px] font-medium text-muted-foreground shadow-card transition-[box-shadow,background-color,color] hover:text-foreground;
   }
   .nt-chip[aria-pressed="true"] {
-    @apply border-primary bg-primary text-primary-foreground;
+    @apply bg-primary text-primary-foreground shadow-none;
   }
 
   .nt-disc {
@@ -295,7 +305,7 @@ body,
   }
 
   .nt-fab {
-    @apply fixed right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg;
+    @apply fixed right-4 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-popover;
     bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
   }
 
@@ -305,8 +315,16 @@ body,
   }
 }
 
-/* iOS zooms inputs under 16px and never zooms back out. */
+/* Phones: controls go back to 44px and inputs to 16px (iOS zooms under 16px
+   and never zooms back out). */
 @media (max-width: 767px) {
+  .nt-btn,
+  .nt-input {
+    height: 2.75rem;
+  }
+  textarea.nt-input {
+    height: auto;
+  }
   input,
   select,
   textarea {

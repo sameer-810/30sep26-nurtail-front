@@ -52,6 +52,16 @@ export default {
           "sky-ink": "#1F4F7A",
         },
       },
+      /**
+       * Elevation. The hairline border is a shadow so it never adds to layout
+       * and adapts to the theme; real shadows only on floating layers.
+       */
+      boxShadow: {
+        card: "0 0 0 1px hsl(var(--border)), 0 1px 2px rgba(0,0,0,0.03)",
+        lift: "0 0 0 1px hsl(var(--input)), 0 4px 12px rgba(14,77,67,0.08)",
+        popover:
+          "0 0 0 1px hsl(var(--border)), 0 8px 16px -4px rgba(0,0,0,0.06), 0 24px 32px -8px rgba(0,0,0,0.12)",
+      },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",
         lg: "var(--radius)",

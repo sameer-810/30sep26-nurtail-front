@@ -119,8 +119,8 @@ function ReviewQueue() {
         />
       ) : (
         <div className="nt-panel overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="nt-thead text-left text-xs uppercase tracking-wide text-muted-foreground">
+          <table className="w-full text-[13px]">
+            <thead className="nt-thead text-left text-xs text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-semibold">Animal</th>
                 <th className="px-4 py-3 font-semibold">Applicant</th>
@@ -131,7 +131,7 @@ function ReviewQueue() {
             </thead>
             <tbody className="divide-y divide-border">
               {data.map((app) => (
-                <tr key={app.id} className="hover:bg-secondary/50">
+                <tr key={app.id} className="transition-colors hover:bg-accent/60">
                   <td className="px-4 py-3">
                     <Link
                       to={`/applications/${app.id}`}

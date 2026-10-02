@@ -213,8 +213,8 @@ function OrgAnimals() {
       ) : (
         <>
           <div className="nt-panel hidden overflow-x-auto md:block">
-            <table className="w-full text-sm">
-              <thead className="nt-thead text-left text-xs uppercase tracking-wide text-muted-foreground">
+            <table className="w-full text-[13px]">
+              <thead className="nt-thead text-left text-xs text-muted-foreground">
                 <tr>
                   <th className="px-4 py-3 font-semibold">Animal</th>
                   <th className="px-4 py-3 font-semibold">Status</th>
@@ -229,7 +229,7 @@ function OrgAnimals() {
                 {data.items.map((a) => {
                   const overdue = a.nextDue && new Date(a.nextDue.dueDate) < new Date();
                   return (
-                    <tr key={a.id} className="hover:bg-secondary/50">
+                    <tr key={a.id} className="transition-colors hover:bg-accent/60">
                       <td className="px-4 py-3">
                         <Link
                           to={`/animals/${a.id}`}

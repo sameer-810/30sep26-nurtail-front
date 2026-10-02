@@ -8,9 +8,10 @@ import { useAppSelector } from "@/app/hooks";
 import { cn } from "@/lib/utils";
 
 /**
- * Role-aware sidebar, forest-night as in the blueprint's rescue workspace.
- *   md+ open   → 256px column
- *   md+ closed → 72px icon rail
+ * Role-aware sidebar. A few notches dimmer than the canvas so the content
+ * wins: muted labels, 16px icons, forest only on the active item.
+ *   md+ open   → 240px column
+ *   md+ closed → 56px icon rail
  * Below md the bottom tab bar replaces it entirely.
  */
 export function Sidebar() {
@@ -40,25 +41,18 @@ export function Sidebar() {
     <aside
       aria-label="Main navigation"
       className={cn(
-        "flex h-full shrink-0 flex-col bg-sidebar text-sidebar-foreground transition-[width] duration-200",
-        collapsed ? "w-[72px]" : "w-64",
+        "flex h-full shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-[width] duration-200",
+        collapsed ? "w-14" : "w-60",
       )}
     >
-      <div
-        className={cn(
-          "flex h-16 items-center border-b border-sidebar-border",
-          collapsed ? "justify-center" : "gap-2.5 px-5",
-        )}
-      >
-        <span className="rounded-lg bg-[#FAF9F6] p-1">
-          <LogoMark size={28} />
-        </span>
-        {!collapsed && <Wordmark onDark />}
+      <div className={cn("flex h-14 items-center", collapsed ? "justify-center" : "gap-2 px-4")}>
+        <LogoMark size={28} />
+        {!collapsed && <Wordmark size="sm" />}
       </div>
 
       {!collapsed && user?.organisation && (
-        <div className="border-b border-sidebar-border px-5 py-3">
-          <p className="truncate text-sm font-semibold text-sidebar-accent-foreground">
+        <div className="mx-3 mb-1 rounded-md bg-card/70 px-3 py-2.5 shadow-card">
+          <p className="truncate text-[13px] font-semibold text-foreground">
             {user.organisation.name}
           </p>
           <div className="mt-1.5">
@@ -67,17 +61,17 @@ export function Sidebar() {
         </div>
       )}
 
-      <nav className="flex-1 overflow-y-auto px-3 py-3">
+      <nav className="flex-1 overflow-y-auto px-2 py-2">
         {sections.map((section, si) => (
-          <div key={section.heading ?? `s${si}`} className={si > 0 ? "mt-4" : undefined}>
+          <div key={section.heading ?? `s${si}`} className={si > 0 ? "mt-5" : undefined}>
             {collapsed
               ? si > 0 && <div className="mx-2 mb-3 h-px bg-sidebar-border" />
               : section.heading && (
-                  <p className="px-3 pb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-sidebar-foreground/50">
+                  <p className="px-3 pb-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-sidebar-foreground/60">
                     {section.heading}
                   </p>
                 )}
-            <div className="space-y-0.5">
+            <div className="space-y-px">
               {section.items.map((item) => {
                 const active = isActive(item.to);
                 const label = labelFor(item, user?.role);
@@ -88,14 +82,19 @@ export function Sidebar() {
                     title={collapsed ? label : undefined}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "flex items-center rounded-md text-sm font-medium transition-colors",
-                      collapsed ? "justify-center p-2.5" : "gap-3 px-3 py-2",
+                      "flex h-8 items-center rounded-md text-[13px] font-medium transition-colors duration-100",
+                      collapsed ? "justify-center" : "gap-2.5 px-3",
                       active
-                        ? "bg-sidebar-primary text-sidebar-primary-foreground"
-                        : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                        ? "bg-sidebar-primary/[0.09] font-semibold text-sidebar-primary"
+                        : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                     )}
                   >
-                    <item.icon className={cn("shrink-0", collapsed ? "h-5 w-5" : "h-4 w-4")} />
+                    <item.icon
+                      className={cn(
+                        "h-4 w-4 shrink-0",
+                        active ? "text-sidebar-primary" : "opacity-80",
+                      )}
+                    />
                     {!collapsed && <span className="truncate">{label}</span>}
                     {collapsed && <span className="sr-only">{label}</span>}
                   </NavLink>
@@ -107,7 +106,7 @@ export function Sidebar() {
       </nav>
 
       {!collapsed && (
-        <p className="border-t border-sidebar-border px-5 py-3 text-[11px] leading-snug text-sidebar-foreground/50">
+        <p className="px-5 py-3 text-[11px] leading-snug text-sidebar-foreground/60">
           Prototype · payments, SMS and maps are simulated
         </p>
       )}

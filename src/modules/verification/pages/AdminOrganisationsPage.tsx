@@ -70,8 +70,8 @@ export function AdminOrganisationsPage() {
         <EmptyState icon={Building2} title="No organisations match" />
       ) : (
         <div className="nt-panel overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="nt-thead text-left text-xs uppercase tracking-wide text-muted-foreground">
+          <table className="w-full text-[13px]">
+            <thead className="nt-thead text-left text-xs text-muted-foreground">
               <tr>
                 <th className="px-4 py-3 font-semibold">Organisation</th>
                 <th className="px-4 py-3 font-semibold">Type</th>
@@ -82,7 +82,7 @@ export function AdminOrganisationsPage() {
             </thead>
             <tbody className="divide-y divide-border">
               {data.items.map((o) => (
-                <tr key={o.id} className="hover:bg-secondary/50">
+                <tr key={o.id} className="transition-colors hover:bg-accent/60">
                   <td className="px-4 py-3">
                     <Link
                       to={`/admin/verification/${o.id}`}

@@ -154,12 +154,12 @@ export function CaseBoardPage() {
                 <section
                   key={s.id}
                   aria-label={`${s.label}, ${col.length} cases`}
-                  className="flex w-64 shrink-0 flex-col rounded-lg bg-secondary/60 p-2.5"
+                  className="flex w-64 shrink-0 flex-col rounded-lg bg-muted/70 p-2"
                 >
                   <header className="mb-2.5 flex items-center justify-between px-1">
                     <span
                       className={cn(
-                        "rounded-full px-2.5 py-1 text-xs font-bold",
+                        "rounded-full px-2 py-0.5 text-[11px] font-bold",
                         TONE_CLASS[s.tone],
                       )}
                     >
@@ -169,7 +169,7 @@ export function CaseBoardPage() {
                       {col.length}
                     </span>
                   </header>
-                  <div className="space-y-2.5">
+                  <div className="space-y-2">
                     {col.map((c) => (
                       <BoardCard
                         key={c.id}
@@ -209,27 +209,27 @@ function BoardCard({
   const slow = c.daysInStage > LOS_WARN[c.stage];
   return (
     <article
-      className="nt-card cursor-pointer p-3 hover:border-primary/40"
+      className="nt-card cursor-pointer p-3 hover:shadow-lift"
       onClick={() => navigate(`/cases/${c.id}`)}
     >
-      <div className="flex items-start gap-2.5">
+      <div className="flex items-center justify-between gap-2">
+        <span className="nt-nums text-[11px] text-muted-foreground">{c.ref}</span>
+        {c.priority !== "routine" && <StatusPill status={c.priority} size="sm" />}
+      </div>
+      <div className="mt-2 flex items-center gap-2.5">
         <AnimalAvatar
           name={c.animal.name}
           species={c.animal.species}
           photoUrl={c.animal.photoUrl}
-          size={36}
+          size={28}
         />
-        <div className="min-w-0 flex-1">
-          <Link
-            to={`/cases/${c.id}`}
-            onClick={(e) => e.stopPropagation()}
-            className="block truncate text-sm font-semibold hover:underline"
-          >
-            {c.animal.name}
-          </Link>
-          <p className="nt-nums whitespace-nowrap text-[11px] text-muted-foreground">{c.ref}</p>
-        </div>
-        {c.priority !== "routine" && <StatusPill status={c.priority} size="sm" />}
+        <Link
+          to={`/cases/${c.id}`}
+          onClick={(e) => e.stopPropagation()}
+          className="truncate text-[13px] font-semibold hover:underline"
+        >
+          {c.animal.name}
+        </Link>
       </div>
       <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
         <span className={cn(slow && "font-semibold text-destructive")} title="Days in this stage">
@@ -270,8 +270,8 @@ function ListView({
 }) {
   return (
     <div className="nt-panel overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead className="nt-thead text-left text-xs uppercase tracking-wide text-muted-foreground">
+      <table className="w-full text-[13px]">
+        <thead className="nt-thead text-left text-xs text-muted-foreground">
           <tr>
             <th className="px-4 py-3 font-semibold">Case</th>
             <th className="px-4 py-3 font-semibold">Stage</th>
@@ -285,7 +285,7 @@ function ListView({
         </thead>
         <tbody className="divide-y divide-border">
           {items.map((c) => (
-            <tr key={c.id} className="hover:bg-secondary/50">
+            <tr key={c.id} className="transition-colors hover:bg-accent/60">
               <td className="px-4 py-3">
                 <Link
                   to={`/cases/${c.id}`}

@@ -176,7 +176,7 @@ export function ChoiceCard({
     <label
       className={cn(
         "flex cursor-pointer items-start gap-3 rounded-lg border bg-card p-4 transition-colors",
-        checked ? "border-primary ring-1 ring-primary" : "border-border hover:border-primary/40",
+        checked ? "border-primary ring-1 ring-primary" : "border-border hover:shadow-lift",
       )}
     >
       <input

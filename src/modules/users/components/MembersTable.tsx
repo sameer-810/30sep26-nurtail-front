@@ -44,8 +44,8 @@ export function MembersTable({ users, showOrg }: { users: AuthUser[]; showOrg?: 
   return (
     <>
       <div className="nt-panel hidden overflow-hidden md:block">
-        <table className="w-full text-sm">
-          <thead className="nt-thead text-left text-xs uppercase tracking-wide text-muted-foreground">
+        <table className="w-full text-[13px]">
+          <thead className="nt-thead text-left text-xs text-muted-foreground">
             <tr>
               <th className="px-4 py-3 font-semibold">Name</th>
               <th className="px-4 py-3 font-semibold">Role</th>
@@ -57,7 +57,7 @@ export function MembersTable({ users, showOrg }: { users: AuthUser[]; showOrg?: 
           </thead>
           <tbody className="divide-y divide-border">
             {users.map((u) => (
-              <tr key={u.id} className="hover:bg-secondary/50">
+              <tr key={u.id} className="transition-colors hover:bg-accent/60">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
                     <span className="nt-disc h-9 w-9 text-xs">{initialsOf(u.name)}</span>

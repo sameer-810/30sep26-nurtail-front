@@ -155,7 +155,7 @@ export function LoginPage() {
                 form.setValue("email", d.email);
                 form.setValue("password", DEMO_PASSWORD);
               }}
-              className="rounded-md border border-border bg-card px-3 py-2 text-left text-xs hover:border-primary/40"
+              className="rounded-md border border-border bg-card px-3 py-2 text-left text-xs hover:shadow-lift"
             >
               <span className="block font-semibold text-foreground">{d.role}</span>
               <span className="block truncate text-muted-foreground">{d.email}</span>

@@ -3,33 +3,46 @@ import { BadgeCheck, HeartHandshake, ScrollText } from "lucide-react";
 import { LogoFull, LogoMark, Wordmark } from "@/shared/components/Logo";
 
 /**
- * Two-panel frame for sign-in and sign-up. The left panel carries the brand
- * promise — calm forest, champagne accents, the three trust messages — and
- * disappears on phones, where the form is the whole job.
+ * Two-panel frame for sign-in and sign-up. The left panel is a real rescue
+ * dog at eye level under a forest gradient, with the brand promise and the
+ * three trust messages on top. It disappears on phones, where the form is the
+ * whole job.
  */
 export function AuthShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-full bg-background">
-      <aside className="relative hidden w-[44%] max-w-[620px] flex-col justify-between overflow-hidden bg-sidebar p-12 text-sidebar-foreground lg:flex">
-        <LeafMotif />
+      <aside className="relative hidden w-[46%] max-w-[680px] flex-col overflow-hidden bg-[#0B2B26] p-12 text-[#F7F2E8] lg:flex">
+        {/* The photo fills the top; the copy sits on solid forest below the face. */}
+        <div className="absolute inset-x-0 top-0 h-[64%]" aria-hidden>
+          <picture>
+            <source type="image/webp" srcSet="/photos/hero-dog.webp" />
+            <img
+              src="/photos/hero-dog.jpg"
+              alt=""
+              className="h-full w-full object-cover object-[50%_35%]"
+            />
+          </picture>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B2B26] via-[#0B2B26]/35 via-30% to-[#0B2B26]/10" />
+        </div>
+
         <div className="relative flex items-center gap-3">
           <span className="rounded-lg bg-[#FAF9F6] p-1.5">
-            <LogoMark size={36} />
+            <LogoMark size={32} />
           </span>
           <Wordmark onDark size="lg" />
         </div>
 
-        <div className="relative">
-          <p className="font-display text-[2.6rem] font-semibold leading-[1.1] text-[#F7F2E8]">
+        <div className="relative mt-auto pt-10">
+          <p className="font-display text-[2.4rem] font-semibold leading-[1.08] tracking-[-0.01em]">
             People. Animals.
             <br />
             <span className="text-brand-gold">A kinder tomorrow.</span>
           </p>
-          <p className="mt-5 max-w-md text-[15px] leading-relaxed text-sidebar-foreground/80">
+          <p className="mt-5 max-w-md text-[15px] leading-relaxed text-[#F7F2E8]/80">
             One permissioned welfare record connecting owners, rescues, fosters, vets and verified
             care providers — with consent and an audit trail built in.
           </p>
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-8 space-y-3.5">
             {[
               {
                 icon: ScrollText,
@@ -48,19 +61,19 @@ export function AuthShell({ children }: { children: ReactNode }) {
               },
             ].map(({ icon: Icon, title, body }) => (
               <li key={title} className="flex gap-3">
-                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sidebar-accent text-brand-gold">
+                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F7F2E8]/10 text-brand-gold backdrop-blur-sm">
                   <Icon className="h-4 w-4" />
                 </span>
                 <span>
-                  <span className="block text-sm font-semibold text-[#F7F2E8]">{title}</span>
-                  <span className="block text-sm text-sidebar-foreground/70">{body}</span>
+                  <span className="block text-sm font-semibold">{title}</span>
+                  <span className="block text-sm text-[#F7F2E8]/70">{body}</span>
                 </span>
               </li>
             ))}
           </ul>
         </div>
 
-        <p className="relative text-xs text-sidebar-foreground/50">
+        <p className="relative mt-8 text-xs text-[#F7F2E8]/55">
           © {new Date().getFullYear()} Nurtail · Animal Health, Welfare &amp; Verified Care Platform
         </p>
       </aside>
@@ -74,20 +87,5 @@ export function AuthShell({ children }: { children: ReactNode }) {
         </div>
       </main>
     </div>
-  );
-}
-
-/** The brand's leaf motif — "natural shapes, flowing lines". Decorative only. */
-function LeafMotif() {
-  return (
-    <svg
-      aria-hidden
-      className="pointer-events-none absolute -right-24 -top-10 h-[520px] w-[520px] opacity-[0.12]"
-      viewBox="0 0 200 200"
-    >
-      <path d="M170 20C95 25 40 70 30 170c60-5 120-40 140-150z" fill="#8FAE8B" />
-      <path d="M170 20C120 70 80 110 30 170" stroke="#D4B581" strokeWidth="2" fill="none" />
-      <path d="M40 180c20-40 70-60 120-50-20 30-70 60-120 50z" fill="#D4B581" opacity=".6" />
-    </svg>
   );
 }

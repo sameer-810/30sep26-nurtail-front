@@ -22,10 +22,10 @@ export function Greeting({ subtitle, actions }: { subtitle?: ReactNode; actions?
             month: "long",
           })}
         </p>
-        <h1 className="nt-display mt-1 text-[1.75rem] leading-tight md:text-[2.1rem]">
+        <h1 className="nt-display mt-1 text-2xl leading-tight md:text-[1.75rem]">
           {partOfDay()}, {first}
         </h1>
-        {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+        {subtitle && <p className="mt-1 text-[13px] text-muted-foreground">{subtitle}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </div>
@@ -55,9 +55,9 @@ export function QuickAction({
   return (
     <Link
       to={to}
-      className={`group flex items-start gap-4 rounded-lg p-5 transition-shadow hover:shadow-md ${bg}`}
+      className={`group flex items-start gap-4 rounded-lg p-5 transition-shadow hover:shadow-lift ${bg}`}
     >
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card text-primary shadow-sm">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card text-primary shadow-card">
         <Icon className="h-5 w-5" />
       </span>
       <span>

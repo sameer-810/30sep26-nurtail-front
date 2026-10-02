@@ -112,7 +112,7 @@ export function PlansPage() {
           <p className="mt-2 text-sm text-muted-foreground">No invoices yet.</p>
         ) : (
           <table className="mt-3 w-full text-sm">
-            <thead className="text-left text-xs uppercase tracking-wide text-muted-foreground">
+            <thead className="text-left text-xs text-muted-foreground">
               <tr>
                 <th className="py-2 font-semibold">Invoice</th>
                 <th className="py-2 font-semibold">Date</th>
