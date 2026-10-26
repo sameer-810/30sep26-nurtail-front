@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nurtail landing — the brand in its most generous form: warm paper, forest
+   ink, champagne used once per section, lots of air. Editorial serif at
+   display sizes, one accent, real animals. Premium and calm, never cute. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    @apply rounded-sm outline-none ring-2 ring-forest ring-offset-2 ring-offset-paper;
+  }
+  ::selection {
+    @apply bg-gold/40 text-forest-deep;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+  }
+  .container-wide {
+    @apply mx-auto w-full max-w-wide px-5 sm:px-8;
+  }
+  /* Section rhythm: 80px on phones, 144px on large screens. */
+  .section {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  /* ── Type scale ──────────────────────────────────────────────────────────── */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-forest;
+  }
+  .display {
+    @apply font-display font-semibold tracking-[-0.02em] text-forest-deep;
+  }
+  .h-hero {
+    font-size: clamp(2.5rem, min(1.75rem + 3vw, 8.5vh), 5.25rem);
+    line-height: 1.02;
+  }
+  .h-section {
+    font-size: clamp(2rem, 1.5rem + 1.8vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+  }
+  .lead {
+    @apply leading-[1.5] text-ink-muted;
+    font-size: clamp(1.0625rem, 2.3vh, 1.25rem);
+  }
+
+  /* ── Controls ────────────────────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 text-[15px] font-semibold transition-[background-color,transform,box-shadow] duration-150 active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply btn bg-forest text-paper hover:bg-forest-600;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-forest shadow-card hover:shadow-hover;
+  }
+  .btn-ghost {
+    @apply btn px-4 text-forest hover:bg-forest/5;
+  }
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-semibold text-forest underline-offset-4 hover:underline;
+  }
+  .btn .arrow,
+  .link-arrow .arrow {
+    @apply transition-transform duration-150;
+  }
+  .btn:hover .arrow,
+  .link-arrow:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Surfaces: hairline is the border, shadow only when floating ─────────── */
+  .card {
+    @apply rounded-[20px] bg-white shadow-card;
+  }
+  .card-hover {
+    @apply transition-shadow duration-200 hover:shadow-hover;
+  }
+
+  .field {
+    @apply h-12 w-full rounded-xl border border-line bg-white px-4 text-[15px] text-ink placeholder:text-ink-muted/60 focus-visible:border-forest;
+  }
+  textarea.field {
+    @apply h-auto min-h-[112px] py-3;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+  .prose-nurtail h2 {
+    @apply mb-2 font-display text-2xl font-semibold text-forest-deep;
+  }
+  .prose-nurtail p {
+    @apply text-ink-muted;
+  }
+
+  /* Film grain for the one dark band — 4%, so it reads as paper, not noise. */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Reveal on scroll — progressive: content is visible without JS and for
+     reduced-motion users; JS adds `is-hidden` only to what's below the fold. */
+  .reveal.is-hidden {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  .reveal {
+    transition:
+      opacity 600ms cubic-bezier(0.23, 1, 0.32, 1),
+      transform 600ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+}
+
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}

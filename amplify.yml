@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install --no-audit --no-fund
+        - npm install --prefix website --no-audit --no-fund
+    build:
+      commands:
+        - npm run build
+        - npm run build --prefix website
+        # app moves to app.html so the website's prerendered index.html owns "/"
+        - mv dist/index.html dist/app.html
+        - cp -r website/dist/. dist/
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - website/node_modules/**/*
