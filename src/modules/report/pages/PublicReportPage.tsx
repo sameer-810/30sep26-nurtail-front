@@ -22,9 +22,9 @@ export function PublicReportPage() {
     <div className="min-h-full bg-background">
       <header className="border-b border-border bg-card px-5 py-4">
         <div className="mx-auto flex max-w-2xl items-center justify-between">
-          <Link to="/login">
+          <a href="https://nurtail.co.uk" aria-label="Nurtail website">
             <LogoLockup />
-          </Link>
+          </a>
           <Link to="/login" className="text-sm font-semibold text-primary hover:underline">
             Sign in
           </Link>

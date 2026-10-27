@@ -45,10 +45,14 @@ export function Sidebar() {
         collapsed ? "w-14" : "w-60",
       )}
     >
-      <div className={cn("flex h-14 items-center", collapsed ? "justify-center" : "gap-2 px-4")}>
+      <a
+        href="https://nurtail.co.uk"
+        aria-label="Nurtail website"
+        className={cn("flex h-14 items-center", collapsed ? "justify-center" : "gap-2 px-4")}
+      >
         <LogoMark size={28} />
         {!collapsed && <Wordmark size="sm" />}
-      </div>
+      </a>
 
       {!collapsed && user?.organisation && (
         <div className="mx-3 mb-1 rounded-md bg-card/70 px-3 py-2.5 shadow-card">

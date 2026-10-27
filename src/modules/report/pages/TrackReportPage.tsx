@@ -16,7 +16,9 @@ export function TrackReportPage() {
     <div className="min-h-full bg-background">
       <header className="border-b border-border bg-card px-5 py-4">
         <div className="mx-auto max-w-2xl">
-          <LogoLockup />
+          <a href="https://nurtail.co.uk" aria-label="Nurtail website">
+            <LogoLockup />
+          </a>
         </div>
       </header>
       <main className="mx-auto max-w-2xl space-y-5 px-5 py-8">

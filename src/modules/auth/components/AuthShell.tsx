@@ -25,12 +25,12 @@ export function AuthShell({ children }: { children: ReactNode }) {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B2B26] via-[#0B2B26]/35 via-30% to-[#0B2B26]/10" />
         </div>
 
-        <div className="relative flex items-center gap-3">
+        <a href="https://nurtail.co.uk" aria-label="Nurtail website" className="relative flex items-center gap-3">
           <span className="rounded-lg bg-[#FAF9F6] p-1.5">
             <LogoMark size={32} />
           </span>
           <Wordmark onDark size="lg" />
-        </div>
+        </a>
 
         <div className="relative mt-auto pt-10">
           <p className="font-display text-[2.4rem] font-semibold leading-[1.08] tracking-[-0.01em]">
@@ -81,7 +81,9 @@ export function AuthShell({ children }: { children: ReactNode }) {
       <main className="flex flex-1 items-start justify-center px-5 py-10 sm:items-center sm:px-8">
         <div className="w-full max-w-md">
           <div className="mb-8 flex justify-center lg:hidden">
-            <LogoFull height={72} />
+            <a href="https://nurtail.co.uk" aria-label="Nurtail website">
+              <LogoFull height={72} />
+            </a>
           </div>
           {children}
         </div>

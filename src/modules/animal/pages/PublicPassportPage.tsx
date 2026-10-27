@@ -24,7 +24,9 @@ export function PublicPassportPage() {
     <div className="min-h-full bg-background">
       <header className="border-b border-border bg-card px-5 py-4">
         <div className="mx-auto flex max-w-xl items-center justify-between">
-          <LogoLockup />
+          <a href="https://nurtail.co.uk" aria-label="Nurtail website">
+            <LogoLockup />
+          </a>
           <span className="text-xs font-semibold text-muted-foreground">Safety Passport</span>
         </div>
       </header>

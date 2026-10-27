@@ -86,9 +86,9 @@ export function Topbar() {
               <ChevronLeft className="h-5 w-5" />
             </button>
           ) : (
-            <span className="md:hidden">
+            <a href="https://nurtail.co.uk" aria-label="Nurtail website" className="md:hidden">
               <LogoMark size={30} />
-            </span>
+            </a>
           )}
 
           <h1 className="min-w-0 flex-1 truncate text-base font-semibold md:hidden">
