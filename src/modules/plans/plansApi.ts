@@ -6,7 +6,7 @@ export type Plan = {
   name: string;
   audience: string[];
   price: number | null;
-  interval: "month";
+  interval: "month" | "year";
   oneOff?: { label: string; amount: number };
   summary: string;
   features: string[];

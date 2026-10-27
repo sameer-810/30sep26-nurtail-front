@@ -287,9 +287,9 @@ test.describe("Phase 5 · API", () => {
       await vendor.ctx.post(`${API}/bookings/${b.id}/complete`, { data: {} }),
     );
     expect(done.payment.status).toBe("captured");
-    expect(done.commissionPercent).toBe(10);
-    expect(done.commission).toBe(1.6);
-    expect(done.vendorPayout).toBe(14.4);
+    expect(done.commissionPercent).toBe(15);
+    expect(done.commission).toBe(2.4);
+    expect(done.vendorPayout).toBe(13.6);
     const dash = await expectData(await vendor.ctx.get(`${API}/dashboard`));
     expect(dash.earnings.completed).toBeGreaterThanOrEqual(3);
 

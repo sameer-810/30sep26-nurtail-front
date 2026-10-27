@@ -59,16 +59,23 @@ export function PlansPage() {
               <p className="mt-4">
                 {p.price === null ? (
                   <span className="text-sm text-muted-foreground">Pricing to follow</span>
+                ) : p.price === 0 && p.oneOff ? (
+                  <>
+                    <span className="nt-nums text-3xl font-bold">
+                      {formatMoney(p.oneOff.amount)}
+                    </span>
+                    <span className="text-sm text-muted-foreground"> one-off + VAT</span>
+                  </>
                 ) : p.price === 0 ? (
                   <span className="nt-nums text-3xl font-bold">Free</span>
                 ) : (
                   <>
                     <span className="nt-nums text-3xl font-bold">{formatMoney(p.price)}</span>
-                    <span className="text-sm text-muted-foreground"> / month + VAT</span>
+                    <span className="text-sm text-muted-foreground"> / {p.interval} + VAT</span>
                   </>
                 )}
               </p>
-              {p.oneOff && (
+              {p.oneOff && (p.price ?? 0) > 0 && (
                 <p className="text-xs text-muted-foreground">
                   plus {p.oneOff.label.toLowerCase()} of {formatMoney(p.oneOff.amount)}
                 </p>
@@ -83,7 +90,7 @@ export function PlansPage() {
               {canManage && !p.comingLater && !isCurrent && (
                 <button type="button" className="nt-btn-primary mt-5" onClick={() => setBuying(p)}>
                   <CreditCard className="h-4 w-4" />{" "}
-                  {p.price ? `Choose ${p.name}` : "Switch to free"}
+                  {p.price || p.oneOff ? `Choose ${p.name}` : "Switch to free"}
                 </button>
               )}
               {canManage && isCurrent && (p.price ?? 0) > 0 && (
@@ -184,10 +191,14 @@ function CheckoutDialog({ plan, onClose }: { plan: Plan; onClose: () => void }) 
       }
     >
       <dl className="space-y-2 text-sm">
-        <div className="flex justify-between">
-          <dt>{plan.name} — first month</dt>
-          <dd className="nt-nums">{formatMoney(plan.price)}</dd>
-        </div>
+        {(plan.price ?? 0) > 0 && (
+          <div className="flex justify-between">
+            <dt>
+              {plan.name} — first {plan.interval}
+            </dt>
+            <dd className="nt-nums">{formatMoney(plan.price)}</dd>
+          </div>
+        )}
         {plan.oneOff && (
           <div className="flex justify-between">
             <dt>{plan.oneOff.label}</dt>
