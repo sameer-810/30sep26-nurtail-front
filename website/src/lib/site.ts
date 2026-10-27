@@ -17,6 +17,7 @@ export const API_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:5
 
 /** Public contact address — set VITE_CONTACT_EMAIL once the domain exists. Empty hides mail links. */
 export const CONTACT_EMAIL = (import.meta.env.VITE_CONTACT_EMAIL || "").trim();
+export const CONTACT_PHONE = (import.meta.env.VITE_CONTACT_PHONE || "").trim();
 
 export type PageMeta = { path: string; title: string; description: string };
 

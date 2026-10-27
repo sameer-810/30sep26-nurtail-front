@@ -1,4 +1,4 @@
-import { APP_URL, CONTACT_EMAIL } from "@/lib/site";
+import { APP_URL, CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/site";
 import { Logo } from "./Header";
 
 const COLUMNS = [
@@ -51,6 +51,31 @@ export function Footer() {
             </a>{" "}
             or the police on 999.
           </p>
+          {(CONTACT_EMAIL || CONTACT_PHONE) && (
+            <div className="mt-6 space-y-2 text-[15px]">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold">Contact us</p>
+              {CONTACT_EMAIL && (
+                <p>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="underline underline-offset-2 hover:text-paper"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                </p>
+              )}
+              {CONTACT_PHONE && (
+                <p>
+                  <a
+                    href={`tel:${CONTACT_PHONE.replace(/\s+/g, "")}`}
+                    className="underline underline-offset-2 hover:text-paper"
+                  >
+                    {CONTACT_PHONE}
+                  </a>
+                </p>
+              )}
+            </div>
+          )}
         </div>
         <nav aria-label="Footer" className="grid gap-10 sm:grid-cols-3">
           {COLUMNS.map((c) => (
