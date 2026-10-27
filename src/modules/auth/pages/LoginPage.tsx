@@ -22,20 +22,6 @@ const schema = z.object({
 });
 type FormValues = z.infer<typeof schema>;
 
-/**
- * Seeded demo accounts, one per role. Shown because Phase 1 is a founder demo
- * (MOU clause 4) — remove before any pilot with real users.
- */
-const DEMO_ACCOUNTS = [
-  { role: "Rescue manager", email: "manager@hopehollow.test" },
-  { role: "Owner / adopter", email: "owner@nurtail.test" },
-  { role: "Foster carer", email: "foster@hopehollow.test" },
-  { role: "Nurtail admin", email: "admin@nurtail.test" },
-  { role: "Service vendor", email: "vendor@greenway.test" },
-  { role: "Vet", email: "vet@nurtail.test" },
-];
-const DEMO_PASSWORD = "Nurtail@12345";
-
 export function LoginPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -137,32 +123,6 @@ export function LoginPage() {
           </span>
         </span>
       </Link>
-
-      <details className="mt-8 rounded-lg border border-dashed border-border p-4">
-        <summary className="cursor-pointer text-sm font-semibold text-foreground">
-          Demo accounts (prototype)
-        </summary>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Every demo account uses the password{" "}
-          <code className="rounded bg-muted px-1">{DEMO_PASSWORD}</code>.
-        </p>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          {DEMO_ACCOUNTS.map((d) => (
-            <button
-              key={d.email}
-              type="button"
-              onClick={() => {
-                form.setValue("email", d.email);
-                form.setValue("password", DEMO_PASSWORD);
-              }}
-              className="rounded-md border border-border bg-card px-3 py-2 text-left text-xs hover:shadow-lift"
-            >
-              <span className="block font-semibold text-foreground">{d.role}</span>
-              <span className="block truncate text-muted-foreground">{d.email}</span>
-            </button>
-          ))}
-        </div>
-      </details>
     </AuthShell>
   );
 }
