@@ -19,7 +19,7 @@ export const API_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:5
 export const CONTACT_EMAIL = (import.meta.env.VITE_CONTACT_EMAIL || "").trim();
 export const CONTACT_PHONE = (import.meta.env.VITE_CONTACT_PHONE || "").trim();
 
-/** Report a Concern is paused: links read "Coming Soon" and its phone numbers are hidden. Set true to restore. */
+/** Report a Concern is paused: /report shows a Coming Soon page (Amplify rewrite) and its phone numbers are hidden. Set true to restore. */
 export const REPORTS_ENABLED = false;
 export const REPORT_URL = `${APP_URL}/report`;
 

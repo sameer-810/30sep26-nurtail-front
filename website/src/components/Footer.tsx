@@ -23,9 +23,7 @@ const COLUMNS = [
   {
     title: "Use Nurtail",
     links: [
-      REPORTS_ENABLED
-        ? { href: REPORT_URL, label: "Report a welfare concern" }
-        : { href: null, label: "Coming Soon" },
+      { href: REPORT_URL, label: "Report a welfare concern" },
       { href: `${APP_URL}/login`, label: "Sign in" },
       { href: "/privacy", label: "Privacy notice" },
       ...(CONTACT_EMAIL ? [{ href: `mailto:${CONTACT_EMAIL}`, label: "Contact us" }] : []),
@@ -88,13 +86,9 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    {l.href ? (
-                      <a href={l.href} className="text-[15px] transition-colors hover:text-paper">
-                        {l.label}
-                      </a>
-                    ) : (
-                      <span className="text-[15px] text-paper/60">{l.label}</span>
-                    )}
+                    <a href={l.href} className="text-[15px] transition-colors hover:text-paper">
+                      {l.label}
+                    </a>
                   </li>
                 ))}
               </ul>
