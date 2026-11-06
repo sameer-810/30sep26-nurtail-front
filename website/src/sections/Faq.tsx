@@ -1,7 +1,8 @@
 import { Plus } from "lucide-react";
 import { SectionHeading } from "@/components/ui";
+import { REPORTS_ENABLED } from "@/lib/site";
 
-const FAQS = [
+const ALL_FAQS = [
   {
     q: "Is Nurtail available now?",
     a: "Not yet to everyone. We're running a pilot with a small group of founding rescue partners first. Register your interest and we'll tell you when it opens for you.",
@@ -29,12 +30,14 @@ const FAQS = [
   {
     q: "What happens to a welfare report I make?",
     a: "It goes privately to a verified rescue covering that area. It's never published, and we'll never show your details to the person you're concerned about. If an animal is in immediate danger, call the RSPCA on 0300 1234 999 or the police on 999.",
+    reports: true,
   },
   {
     q: "Do you sell animals or take a cut of adoptions?",
     a: "Never. Nurtail takes no payment or commission for any animal. Adoption donations go straight to the rescue.",
   },
 ];
+const FAQS = ALL_FAQS.filter((f) => REPORTS_ENABLED || !("reports" in f));
 
 /** Native <details> — keyboard and screen-reader friendly without any script. */
 export function Faq() {

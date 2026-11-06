@@ -19,6 +19,10 @@ export const API_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:5
 export const CONTACT_EMAIL = (import.meta.env.VITE_CONTACT_EMAIL || "").trim();
 export const CONTACT_PHONE = (import.meta.env.VITE_CONTACT_PHONE || "").trim();
 
+/** Report a Concern is paused: links read "Coming Soon" and its phone numbers are hidden. Set true to restore. */
+export const REPORTS_ENABLED = false;
+export const REPORT_URL = `${APP_URL}/report`;
+
 export type PageMeta = { path: string; title: string; description: string };
 
 export const PAGES: Record<string, PageMeta> = {
@@ -32,6 +36,11 @@ export const PAGES: Record<string, PageMeta> = {
     path: "/privacy",
     title: "Privacy notice — Nurtail",
     description: "How Nurtail uses the details you share when you register your interest.",
+  },
+  "/report": {
+    path: "/report",
+    title: "Report a concern — coming soon — Nurtail",
+    description: "Reporting a concern about an animal on Nurtail is coming soon.",
   },
 };
 

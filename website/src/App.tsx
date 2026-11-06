@@ -8,6 +8,7 @@ import "@fontsource/playfair-display/latin-500-italic.css";
 import { Footer } from "./components/Footer";
 import { Header, MobileCta, TopBar } from "./components/Header";
 import { Privacy } from "./pages/Privacy";
+import { ReportComingSoon } from "./pages/ReportComingSoon";
 import { Faq } from "./sections/Faq";
 import { FinalCta } from "./sections/FinalCta";
 import { Hero } from "./sections/Hero";
@@ -19,8 +20,18 @@ import { Problems } from "./sections/Problems";
 import { Roles } from "./sections/Roles";
 import { Trust } from "./sections/Trust";
 
-/** Two static pages; no router needed. */
+/** Static pages; no router needed. */
 export function App({ path }: { path: string }) {
+  if (path === "/report") {
+    return (
+      <>
+        <TopBar />
+        <Header />
+        <ReportComingSoon />
+        <Footer />
+      </>
+    );
+  }
   if (path === "/privacy") {
     return (
       <>

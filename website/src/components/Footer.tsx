@@ -1,4 +1,4 @@
-import { APP_URL, CONTACT_EMAIL, CONTACT_PHONE } from "@/lib/site";
+import { APP_URL, CONTACT_EMAIL, CONTACT_PHONE, REPORT_URL, REPORTS_ENABLED } from "@/lib/site";
 import { Logo } from "./Header";
 
 const COLUMNS = [
@@ -23,7 +23,9 @@ const COLUMNS = [
   {
     title: "Use Nurtail",
     links: [
-      { href: `${APP_URL}/report`, label: "Report a welfare concern" },
+      REPORTS_ENABLED
+        ? { href: REPORT_URL, label: "Report a welfare concern" }
+        : { href: null, label: "Coming Soon" },
       { href: `${APP_URL}/login`, label: "Sign in" },
       { href: "/privacy", label: "Privacy notice" },
       ...(CONTACT_EMAIL ? [{ href: `mailto:${CONTACT_EMAIL}`, label: "Contact us" }] : []),
@@ -41,16 +43,18 @@ export function Footer() {
             Animal health, welfare and verified care — one trusted record for every animal in the
             UK.
           </p>
-          <p className="mt-6 max-w-xs rounded-2xl border border-paper/15 p-4 text-sm leading-relaxed">
-            <strong className="text-paper">Animal in danger right now?</strong> Call the RSPCA on{" "}
-            <a
-              href="tel:03001234999"
-              className="font-semibold text-gold underline underline-offset-2"
-            >
-              0300 1234 999
-            </a>{" "}
-            or the police on 999.
-          </p>
+          {REPORTS_ENABLED && (
+            <p className="mt-6 max-w-xs rounded-2xl border border-paper/15 p-4 text-sm leading-relaxed">
+              <strong className="text-paper">Animal in danger right now?</strong> Call the RSPCA on{" "}
+              <a
+                href="tel:03001234999"
+                className="font-semibold text-gold underline underline-offset-2"
+              >
+                0300 1234 999
+              </a>{" "}
+              or the police on 999.
+            </p>
+          )}
           {(CONTACT_EMAIL || CONTACT_PHONE) && (
             <div className="mt-6 space-y-2 text-[15px]">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold">Contact us</p>
@@ -84,9 +88,13 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {c.links.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href} className="text-[15px] transition-colors hover:text-paper">
-                      {l.label}
-                    </a>
+                    {l.href ? (
+                      <a href={l.href} className="text-[15px] transition-colors hover:text-paper">
+                        {l.label}
+                      </a>
+                    ) : (
+                      <span className="text-[15px] text-paper/60">{l.label}</span>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Megaphone, Menu, X } from "lucide-react";
-import { APP_URL } from "@/lib/site";
+import { APP_URL, REPORT_URL, REPORTS_ENABLED } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 const NAV = [
@@ -41,19 +41,27 @@ export function TopBar() {
         <div className="container-page flex h-9 items-center justify-between gap-4">
           <p className="truncate">
             <span className="hidden sm:inline">Worried about an animal? </span>
-            <a
-              href={`${APP_URL}/report`}
-              className="inline-flex items-center gap-1.5 font-semibold text-paper underline-offset-2 hover:underline"
-            >
-              <Megaphone className="h-3.5 w-3.5 text-coral" aria-hidden /> Report a concern
-            </a>
+            {REPORTS_ENABLED ? (
+              <a
+                href={REPORT_URL}
+                className="inline-flex items-center gap-1.5 font-semibold text-paper underline-offset-2 hover:underline"
+              >
+                <Megaphone className="h-3.5 w-3.5 text-coral" aria-hidden /> Report a concern
+              </a>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 font-semibold text-paper">
+                <Megaphone className="h-3.5 w-3.5 text-coral" aria-hidden /> Coming Soon
+              </span>
+            )}
           </p>
-          <p className="hidden md:block">
-            In immediate danger? Call the RSPCA on{" "}
-            <a href="tel:03001234999" className="font-semibold text-gold hover:underline">
-              0300 1234 999
-            </a>
-          </p>
+          {REPORTS_ENABLED && (
+            <p className="hidden md:block">
+              In immediate danger? Call the RSPCA on{" "}
+              <a href="tel:03001234999" className="font-semibold text-gold hover:underline">
+                0300 1234 999
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </>
@@ -135,12 +143,18 @@ export function Header() {
                 {n.label}
               </a>
             ))}
-            <a
-              href={`${APP_URL}/report`}
-              className="flex items-center gap-2 rounded-xl px-2 py-3 text-base font-semibold text-coral-ink"
-            >
-              <Megaphone className="h-4 w-4" /> Report a concern
-            </a>
+            {REPORTS_ENABLED ? (
+              <a
+                href={REPORT_URL}
+                className="flex items-center gap-2 rounded-xl px-2 py-3 text-base font-semibold text-coral-ink"
+              >
+                <Megaphone className="h-4 w-4" /> Report a concern
+              </a>
+            ) : (
+              <span className="flex items-center gap-2 rounded-xl px-2 py-3 text-base font-semibold text-ink-muted">
+                <Megaphone className="h-4 w-4" aria-hidden /> Coming Soon
+              </span>
+            )}
             <a
               href={`${APP_URL}/login`}
               className="rounded-xl px-2 py-3 text-base font-medium text-ink"
